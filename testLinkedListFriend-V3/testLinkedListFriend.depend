@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1465369595 source:c:\users\registor\desktop\cpptest\testlinkedlistfriend\linkedlist.cpp
+	<iostream>
+	"LinkedList.h"
+
+1465369043 c:\users\registor\desktop\cpptest\testlinkedlistfriend\linkedlist.h
+
+1465354806 source:c:\users\registor\desktop\cpptest\testlinkedlistfriend\testlinkedlistfriend.cpp
+	<iostream>
+	"LinkedList.h"
+

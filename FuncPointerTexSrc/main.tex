@@ -1,0 +1,203 @@
+\RequirePackage[l2tabu, orthodox]{nag}
+\documentclass[scheme=chinese, heading = true, UTF8]{ctexart}
+
+% 载入需要的宏包
+\input{setup/packages.tex}
+% 进行必要的设置
+\input{setup/format.tex}
+
+\title{\Large \heiti 关于在C语言结构体中使用函数指针的问题}
+\author{\zihao{4} \fangsong 耿楠\\\small \songti 西北农林科技大学信息
+  工程学院，陕西$\cdot$杨凌，712100}
+%\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+  结构体是C语言中一个非常重要的自定义数据类型，它描述了一系列相同类型或
+  不同类型数据构成的数据集合。C语言中的结构体是最接近C++中类的概念，但是
+  在C语言的结构体成员却不能是函数，针对这一问题，本文分析探讨了将函数
+  指针作为结构体成员的理论和方法。通过在结构体中定义函数指针类型的成员，
+  从而实现了在结构体中使用函数的目的。
+\end{abstract}
+
+\section{引言}\label{sec-intro}
+结构体在C语言中用于描述由一系列具有相同类型或不同类型的数据构成的数据集
+合，结构体的成员可以是C语言中合法的各种内置类型和自定类型，甚至是自己结
+构体类型的指针。结构体是一种聚合数据类型(aggregate data type)，在结构体
+中，每个成员都有不同的名称，可以通过该名称使用指定的结构体成员。
+
+结构体经常用于描述一个数据集中的一条记录，其每个成员就是这条记录的一个
+字段。结构体可以用于声明变量、指针或数组等，用以实现更为复杂的数据结构，
+结构体是用于描述栈、链表、树、图、向量、映射等复杂数据结构的基础。
+是C语言中非常重要的一个自定义数据类型。
+
+在实际项目中，结构体是大量存在的。研发人员常使用结构体来封装一些属性来
+组成新的类型。由于C语言内部程序比较简单，研发人员通常使用结构体创造新
+的\qtmark{属性}，其最主要的作用就是封装。封装的好处就是可以重复使用。让
+使用者不必关心这个是什么，只要根据定义使用就可以了。
+
+虽然在C语言中，通过定义结构体类型，可以将多个相关的变量封装成一个整体使
+用。但在C语言的结构体中却不能包含函数，这必然会给程序设计带来不便。本文针
+对这一问题，探讨了将函数指针作为结构体成员的理论和方法，通过在结构体中
+定义函数指针类型成员，从而实现了在结构体内使用函数的目的。
+\section{函数指针}\label{sec-funtionpointer}
+指针类型的变量是用于存储地址的一种变量，C语言并没有规定必
+须在指针中存储一个变量的地址(\alert{指向一个变量})，只要是一个地址，都
+可以存储到指针中。程序中的一个函数在内存中也是要占用一定数量内存单元的，
+所以每个函数都是有地址的，一个函数的在内存中的首地址就是函数的地址，显
+然，可能用指针来存储这一地址，也就是用一个指针指向一个函数，指向函数的
+指针称为\emph{函数指针}。
+
+定义普通指针时，为能正确访问内存空间，必须为指针指定确定的数据类型，
+如\cppinline{int *}类型的指针、\cppinline{char *}类型的指
+针、\cppinline{struct node *}类型的指针等。函数指针当然也不例外，也需
+要为其指定确定的类型，这种类型称为\emph{函数类型}。
+
+C语言中，声明一个函数原型时，需要明确函数的返回类型、函数名称、函数的
+形参表(参数的个数和每个参数的类型)，如：
+
+\begin{minipage}[h]{0.6\linewidth}
+  \begin{cppcode}
+    int add(int x, int y);
+  \end{cppcode}
+\end{minipage}
+
+在声明一个函数原型时，关心的是形参的类型而不是名称，因此，只需要给出其
+类型即可，如：
+
+\begin{minipage}[h]{0.6\linewidth}
+  \begin{cppcode}
+    int add(int, int);
+  \end{cppcode}
+\end{minipage}
+
+所以，一个函数的声明可以理解为定义了一个\cppinline{int ()(int, int)}
+类型的变量\cppinline{add}，可将类似于\cppinline{int ()(int, int)}的类型，
+称之为函数类型，由此，声明一个函数指针的基本语法为：
+
+\begin{minipage}[h]{0.6\linewidth}
+  \begin{cpptt}
+    |返回值类型| |\emph{(* 指针变量名)}| ([|形参列表|]);
+  \end{cpptt}
+\end{minipage}
+
+其中，\qtmark{返回值类型}说明函数的返回类型，\qtmark{\emph{(* 指针变量
+    名)}}中的圆括号不能省，若省略整体则成为一个函数声明，声明了一个返回
+的数据类型是指针的函数，后面的\qtmark{形参列表}表示函数所带的形参列
+表(\alert{一个函数可以没有\qtmark{形参列表}})。例如：
+
+\begin{minipage}[h]{0.6\linewidth}
+  \begin{cppcode}
+    int (*pf)(int, int);
+  \end{cppcode}
+\end{minipage}
+
+表示声明了一个指向含有两个int参数并且返回值是int类型的函数的函数指针。
+
+假设有函数：
+
+\begin{minipage}[h]{0.6\linewidth}
+  \begin{cppcode}
+    int add(int x, int y)
+    {
+      return x + y;
+    }
+  \end{cppcode}
+\end{minipage}
+
+则在可以使用指针pf实现函数的调用：
+
+\begin{minipage}[h]{0.6\linewidth}
+  \begin{cppcode}
+    // 结指针赋值,让pf指向函数add    
+    // 都表示函数的首地址。
+    pf = &add; // 注意与add含义相同，
+    printf("pf(3,4)=%d\n",pf(3, 4));
+  \end{cppcode}
+\end{minipage}
+
+实际编程中，为了便于代码的移植，一般会使用\cppinline{typedef}为函数类
+型的指针类型定义一个别名来使用，如：
+
+\begin{minipage}[h]{0.6\linewidth}
+  \begin{cppcode}
+    // 为函数类型定义别名    
+    typedef int(*FUN)(int,int);
+    // 定义指针并赋值为add
+    FUN pf = add;
+    // 通过函数指针调用函数
+    printf("pf(3,4)=%d\n",pf(3, 4));
+  \end{cppcode}
+\end{minipage}
+
+使用函数指针可以更加灵活的实现函数的调用，另外，也可以将函数指针用作函数
+的参数，将一个函数传入另一个函数，从而实现更为复杂的程序结构。
+\section{在结构体中使用函数指针}\label{sec-structfuncpointer}
+显然，函数指针也是一个指针型的变量，根据结构体的定义，其成员可以是各种
+合法的C语言变量。由此可以，在结构体中也可以包含函数指针，如：
+
+\begin{mdframed}
+  \cppfile{codes/struct-foopoint.c}
+\end{mdframed}
+
+当然，为了便于代码的移植可以使用\cppinline{typedef}为函数类
+型的指针类型定义一个别名来使用函数指针，如：
+
+
+\begin{mdframed}
+  \cppfile{codes/struct-foopoint-typedef.c}
+\end{mdframed}
+
+在结构体中使用的函数指针指向的函数的形参可以是其它的变量，如：
+
+\begin{mdframed}
+  \cppfile{codes/funptThisfArg.c}
+\end{mdframed}
+
+也可以是自己结构体类型的形参，如：
+
+\begin{mdframed}
+  \cppfile{codes/funptGenArg.c}
+\end{mdframed}
+
+利用在结构体中集成函数指针，还可以实现结构体类型的变量与其它类型变量
+的比较操作，如：
+
+\begin{mdframed}
+  \cppfile{codes/cmpThisInt.c}
+\end{mdframed}
+
+在C语言中，在结构体中使用函数指针将属性和方法统一进行
+封装，这样的结构体一般称为\emph{协议类}，是C语言中一种常用的编程技术。
+
+另外，也常用带有函数指针的结构体实现程序设计中的\emph{回调函数}机制。一
+般的程序中回调函数作用不是非常明显，可以不使用这种形式。回调函数机制最
+主要的用途就是当函数处于不同文件(比如动态库等)，要调用其他程序中的函数
+就只有采用回调的形式，通过将外部函数的地址通过函数指针形参传入函数来实
+现调用，便于程序的维护和升级。关于回调函数机制的原理和详情，请大家查阅
+相关资料。
+\section{结论与讨论}\label{sec-concolution}
+在结构体中使用函数指针，将属性和方法进行封装，构成协议类，是C语言中一种
+非常重要的编程技术。但由于国内C语言教学中长期忽略函数指针及其应用的内容，
+从而造成了C语言学习中对函数指针的应用不够深入，特别是在结构体与函数指针
+的结合方面在本科教学中是处理空白。为此，本文针对这一问题，分析探讨了将
+函数指针作为结构体成员的理论和方法，实现了在结构体中调用函数的目的。
+
+
+\vfill
+\textattachfile[ucfilespec=examplecodes.pdf]{codes/examplecodes.zip}{\emph{
+    附：鼠标右键单击选择\qtmark{保存附件}下载样例代码附件，然后将后缀名
+    改为\qtmark{.zip}解压即可}}\footnote{解压后的文件名对应于本文中实
+  例的注释中的文件名。}
+
+
+\bibliography{main}
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

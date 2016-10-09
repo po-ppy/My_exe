@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1465005123 source:/root/My_exe/1_4Lianbiao/main.cpp
+	<iostream>
+	<cstring>
+

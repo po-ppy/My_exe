@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1457921321 source:/home/registor/Desktop/2016年春/教学/教学法与教学内容研究/用函数指针作为结构体成员/codes/funpointerinstruc/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"first.h"
+
+1457919671 /home/registor/Desktop/2016年春/教学/教学法与教学内容研究/用函数指针作为结构体成员/codes/funpointerinstruc/first.h
+

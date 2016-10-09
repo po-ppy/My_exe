@@ -1,0 +1,4 @@
+# depslib dependency file v1.0
+1468443489 source:/root/My_exe/test/main.cpp
+	<iostream>
+

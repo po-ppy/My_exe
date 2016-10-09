@@ -1,0 +1,75 @@
+# depslib dependency file v1.0
+1426608266 source:c:\users\dillon\desktop\freegluttest\main.cpp
+	<windows.h>
+	<stdio.h>
+	<gl/glut.h>
+
+1426759064 source:c:\users\dillon\desktop\installgraphlib\freegluttest\main.cpp
+	<stdio.h>
+	"CPPGraph.h"
+
+1426758752 c:\users\dillon\desktop\installgraphlib\freegluttest\cppgraph.h
+	<GL/glut.h>
+	<cmath>
+
+1426759064 source:c:\users\dillon\desktop\installgraphlib\freegluttest\cppgraph.cpp
+	"CPPGraph.h"
+
+1427031620 source:c:\users\dillon\desktop\cppgraphlib\freegluttest\cppgraph.cpp
+	"CPPGraph.h"
+
+1427031067 c:\users\dillon\desktop\cppgraphlib\freegluttest\cppgraph.h
+	<GL/glut.h>
+	<cstdio>
+	<cmath>
+
+1427032970 source:c:\users\dillon\desktop\cppgraphlib\freegluttest\main.cpp
+	"CPPGraph.h"
+
+1427036823 source:c:\users\dillon\desktop\cppgraphlib\worldclock\main.cpp
+	"Graph2D.h"
+
+1427036281 c:\users\dillon\desktop\cppgraphlib\worldclock\cppgraph.h
+	<GL/glut.h>
+	<cstdio>
+	<cmath>
+
+1427036281 source:c:\users\dillon\desktop\cppgraphlib\worldclock\cppgraph.cpp
+	"CPPGraph.h"
+
+1427036389 source:c:\users\dillon\desktop\cppgraphlib\worldclock\graph2d.cpp
+	"Graph2D.h"
+
+1427036281 c:\users\dillon\desktop\cppgraphlib\worldclock\graph2d.h
+	<GL/glut.h>
+	<cstdio>
+	<cmath>
+
+1427245630 source:c:\users\dillon\desktop\cppgraph\worldclock\main.cpp
+	"Graph2D.h"
+
+1427245616 c:\users\dillon\desktop\cppgraph\worldclock\graph2d.h
+	<GL/glut.h>
+	<cstdio>
+	<cmath>
+
+1427245771 source:c:\users\dillon\desktop\cppgraph\worldclock\graph2d.cpp
+	"Graph2D.h"
+
+1427426602 source:c:\users\dillon\desktop\cppgraph\v04\graph2d.cpp
+	"Graph2D.h"
+
+1427427063 c:\users\dillon\desktop\cppgraph\v04\graph2d.h
+	<GL/glut.h>
+	<cstdio>
+	<cmath>
+
+1427426713 source:c:\users\dillon\desktop\cppgraph\v04\main.cpp
+	"Graph2D.h"
+
+1427427586 source:c:\users\dillon\desktop\graph2dlib\benchmark\main.cpp
+	<Graph2D.h>
+
+1427428227 source:c:\users\dillon\desktop\graph2dlib\examples\fonttest\main.cpp
+	<Graph2D.h>
+

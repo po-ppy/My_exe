@@ -1,0 +1,105 @@
+% 重定义强调字体的代码，解决默认强调字体是italic，此时中文会用楷体代替，
+% 在此设置为加粗，注意需要使用etoolbox宏包
+\makeatletter
+\let\origemph\emph
+\newcommand*\emphfont{\normalfont\bfseries}
+\DeclareTextFontCommand\@textemph{\emphfont}
+\newcommand\textem[1]{%
+  \ifdefstrequal{\f@series}{\bfdefault}
+    {\@textemph{\CTEXunderline{#1}}}
+    {\@textemph{#1}}%
+}
+\RenewDocumentCommand\emph{s o m}{%
+  \IfBooleanTF{#1}
+    {\textem{#3}}
+    {\IfNoValueTF{#2}
+      {\textem{#3}\index{#3}}
+      {\textem{#3}\index{#2}}%
+     }%
+}
+\makeatother   
+
+% ========设置标题的格式========
+\ctexset{
+  section = {
+    format+ = \zihao{-4} \heiti \raggedright,
+    name = {,、},
+    number = \chinese{section},
+    beforeskip = 1.0ex plus 0.2ex minus .2ex,
+    afterskip = 1.0ex plus 0.2ex minus .2ex,
+    aftername = \hspace{0pt}
+  },
+  subsection = {
+    format+ = \zihao{5} \heiti \raggedright,
+    % name={\thesubsection、},
+    name = {,、},
+    number = \arabic{subsection},
+    beforeskip = 1.0ex plus 0.2ex minus .2ex,
+    afterskip = 1.0ex plus 0.2ex minus .2ex,
+    aftername = \hspace{0pt}
+  }
+}
+
+% % ========设置标题的格式========
+% \ctexset{
+%   section = {
+%     format+ = \zihao{-4}  \raggedright,
+%     name = {,、},
+%     number = \chinese{section},
+%     beforeskip = 1.0ex plus 0.2ex minus .2ex,
+%     afterskip = 1.0ex plus 0.2ex minus .2ex,
+%     aftername = \hspace{0pt}
+%   }
+% }
+
+% ========不需要页眉=======
+\pagestyle{plain}
+
+\labelformat{figure}{\figurename#1}
+\labelformat{table}{\tablename#1}
+
+% 设置插图路径
+\graphicspath{{figures/}}
+
+% 定义提醒字体
+\newcommand{\alert}[1]{\textcolor{red}{\textbf{#1}}}
+
+% 定义引号命令
+\newcommand{\qtmark}[1]{``#1''}
+
+% 定义专有名词
+\newcommand{\cb}{\texttt{Code::Blocks}}
+\newcommand{\mww}{\texttt{MinGW-w64}}
+\newcommand{\mfile}{\qtmark{\texttt{Makefile}}}
+%%%%%%%%%%% 定义颜色%%%%%%%%%%%%%%%%%%
+\definecolor{listinggray}{gray}{0.92}
+
+% 定义C语言代码参数
+\setminted{fontsize=\small, mathescape, breaklines=true,
+  breakautoindent=false, autogobble}
+\newmintinline{cpp}{fontsize=\normalsize}
+\newmintinline{shell}{fontsize=\normalsize}
+\newminted{cpp}{bgcolor=yellow!20!white, mathescape, autogobble,fontsize=\small, frame=lines}
+\newminted[cpptt]{cpp}{bgcolor=yellow!20!white, mathescape,
+  autogobble,fontsize=\small,escapeinside=||, frame=lines}
+\newminted[shell]{sh}{autogobble,fontsize=\small, frame=lines}
+\newmintedfile{cpp}{linenos=true, fontsize=\small}
+
+% 定义makefile代码参数
+\newmintinline{basemake}{fontsize=\normalsize}
+\newmintinline[makefileinline]{basemake}{fontsize=\normalsize,escapeinside=!!}
+\newminted{basemake}{mathescape,
+  autogobble,fontsize=\small,frame=lines}
+\newminted[makefilett]{basemake}{mathescape,
+  autogobble,fontsize=\small,frame=lines,escapeinside=!!}
+\newmintedfile{basemake}{mathescape, autogobble,fontsize=\small,frame=lines}
+
+%bgcolor=listinggray, 
+
+% 参考文献
+\bibliographystyle{plain}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master:"../main.tex"
+%%% End:

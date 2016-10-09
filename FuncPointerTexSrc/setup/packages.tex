@@ -1,0 +1,53 @@
+% =========数学符号宏包=========
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+% =========设置页边距宏包=========
+\usepackage[left=2.8cm,right=2.5cm,top=2.54cm,bottom=2.54cm]{geometry}
+
+% 添加附件的宏包
+\usepackage[author=耿楠,
+%scale=0.35,
+color={0 0 1.0},%color=red,
+%mimetype=text/plain,
+subject=源代码,
+description=打开或下载该源代码,
+icon=Paperclip]{attachfile2}
+
+% =========超链接宏包=========
+\usepackage{hyperref}
+\hypersetup{ % 取消超链接文字的包围框显示
+    colorlinks=false,
+    pdfborder={0 0 0},
+}
+
+% =========浮动体增强宏包=========
+\usepackage{floatrow}
+\floatsetup[figure]{objectset=centering, margins=centering}
+
+% ========排版键盘组合和菜单的宏包=========
+\usepackage{menukeys}
+
+% ========排版代码的宏包=========
+\usepackage{minted}
+
+% ========处理标题的宏包=========
+\usepackage[labelsep=quad]{caption}
+\usepackage{varioref}
+
+% =========颜色宏包=========
+\usepackage{xcolor}
+
+% =========提供了ltx2e里面命令、环境的一些补丁=========
+\usepackage{etoolbox}
+
+% =========解决minted包排版代码的跨页问题=========
+\usepackage[linecolor=black, topline=true, bottomline=true,
+leftline=false, rightline=false,
+backgroundcolor=yellow!20!white]{mdframed}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master:"../main.tex"
+%%% End:

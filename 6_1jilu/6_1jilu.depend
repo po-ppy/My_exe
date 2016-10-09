@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1467861137 source:/root/My_exe/6_1jilu/main.cpp
+	<iostream>
+	<fstream>
+	<cstring>
+

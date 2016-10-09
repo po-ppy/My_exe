@@ -1,0 +1,32 @@
+# depslib dependency file v1.0
+1464577006 source:c:\users\registor\desktop\cpptest\testMat\main.cpp
+	<iostream>
+	"Matrix.h"
+
+1464593134 
+
+1464579615 source:c:\users\registor\desktop\cpptest\testMat\matrix.cpp
+	<cstring>
+	<iostream>
+	"Matrix.h"
+
+1464577593 c:\users\registor\desktop\cpptest\testMat\matrix.h
+
+1464592793 source:c:\users\registor\desktop\cpptest\testmat\main.cpp
+	<iostream>
+	"Matrix.h"
+
+1464593134 c:\users\registor\desktop\cpptest\testmat\matrix.h
+	<iostream>
+
+1464593134 source:c:\users\registor\desktop\cpptest\testmat\matrix.cpp
+	<cstring>
+	"Matrix.h"
+
+1464637308 source:/root/My_exe/testMatMulti/main.cpp
+	<iostream>
+	"Matrix.h"
+
+1464636334 /root/My_exe/testMatMulti/Matrix.h
+	<iostream>
+

@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1465268471 source:/root/My_exe/2_4morenxincan/main.cpp
+	<iostream>
+	<cmath>
+
